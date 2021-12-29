@@ -1,10 +1,8 @@
-#masterspin
-#11/23/2021
-#valTeamComp
-
 import discord
 import os
 import random
+from discord.utils import get
+
 
 client = discord.Client()
 
@@ -16,8 +14,11 @@ async def on_ready():
 async def on_message(message):
   if message.author == client.user:
     return
+  #message.author.id == #your user ID and 
+  if 'ratio' in message.content and message.author.id == #your user ID:
+    await message.add_reaction('<:upvote:#upovte ID>')
   if message.content.startswith('--unrated'):
-    agents = ['Brimstone','Viper','Omen','Killjoy','Cypher','Sova','Sage','Phoenix','Jett','Reyna','Raze','Breach','Skye','Yoru','Astra','KAY/O','Chamber']
+    agents = ['Brimstone','Viper','Omen','Killjoy','Cypher','Sova','Sage','Phoenix','Jett','Reyna','Raze','Breach','Skye','Astra','KAY/O','Chamber']
     m = message.content.split()
     m.remove('--unrated')
     chosen = []
@@ -35,8 +36,6 @@ async def on_message(message):
       output += m[i] + ': ' + chosen[i] + '\n'
     await message.channel.send(output)
 
-      
-    
     # m = newMessage.split()
     # for i in range(int(m[0])):
     #   await message.channel.send(m[1])
