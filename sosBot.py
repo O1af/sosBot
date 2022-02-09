@@ -142,7 +142,7 @@ async def on_message(message):
   if(message.content.startswith('--lovelyolaf')):
     await message.channel.send(' https://media.discordapp.net/attachments/817432681633153029/940808945906364456/Snapchat-1781669876.png?width=364&height=700')
     
-  # #message.author.id == 635987876147888140 and 
+  #ratio time
   if 'ratio' in message.content:
     await message.add_reaction('<:upvote:844410038256795678>')
   if message.content.startswith('--unrated'):
