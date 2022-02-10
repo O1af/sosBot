@@ -16,60 +16,18 @@ async def on_message(message):
   if message.author == client.user:
     return
   
-
   #lightmode
-  if '⬜' in message.content:
-    await message.reply("Light mode, doesn't count")
-    await message.add_reaction('<:upvote:844410038256795678>')
+  lightmode_emotes = ['⬜','👩🏻‍🦳','👨🏻‍🦳','◽','❔','👩‍🦳','👨‍🦳','🏳️','🤍','▫️','⚪','✅','❕','💮']
   
-  if '👩🏻‍🦳' in message.content:
-    await message.reply("Light mode, doesn't count")
-  
-  if '👨🏻‍🦳' in message.content:
-    await message.reply("Light mode, doesn't count")
-  
-  if '◽' in message.content:
-    await message.reply("Light mode, doesn't count")
-  
-  if '❔' in message.content:
-    await message.reply("Light mode, doesn't count")
-  
-  if '👩‍🦳' in message.content:
-    await message.reply("Light mode, doesn't count")
-  
-  if '👨‍🦳' in message.content:
-    await message.reply("Light mode, doesn't count")
-  
-  if '🏳️' in message.content:
-    await message.reply("Light mode, doesn't count")
-    await message.add_reaction('<:upvote:844410038256795678>')
-  
-  if '🔳' in message.content:
-    await message.reply("Light mode, doesn't count")
-    await message.add_reaction('<:upvote:844410038256795678>')
-  
-  if '◻️' in message.content:
-    await message.reply("Light mode, doesn't count")
-    await message.add_reaction('<:upvote:844410038256795678>')
-  
-  if '🤍' in message.content:
-    await message.reply("Light mode, doesn't count")
-    await message.add_reaction('<:upvote:844410038256795678>')
-
-  if '▫️' in message.content:
-    await message.reply("Light mode, doesn't count")
-    await message.add_reaction('<:upvote:844410038256795678>')
-
-  if '⚪' in message.content:
-    await message.reply("Light mode, doesn't count")
-    await message.add_reaction('<:upvote:844410038256795678>')
-  
-  if 'Light mode, doesn\'t count' in message.content:
-    await message.add_reaction('<:upvote:844410038256795678>') 
+  for i in lightmode_emotes:
+    if i in message.content:
+      ctx =  await message.reply("Light mode, doesn't count")
+      await ctx.add_reaction('<:upvote:844410038256795678>')
+      break
   
   #commands
   if(message.content.startswith('--commands')):
-    await message.channel.send('--unrated\n--repeat\n--uno\n--pfp\n--deepthroat\n--wtfolaf\n--epicrs\n--anishteddy\n--soochit\n--sochit\n--babyshek\n--sadnabi\n--gigashreyas\n--wtfshreyas\n--suchitbruh\n--venkydasimp\n--shreyascolor\n--shreyasmugshot\n--blackshreyas\n--sos\n--gigashreyascard\n--anishdoctor\n--wtfboots\n--prof(firstname)\nlovelyolaf')
+    await message.channel.send('--unrated\n--repeat\n--uno\n--pfp\n--deepthroat\n--wtfolaf\n--epicrs\n--anishteddy\n--soochit\n--sochit\n--babyshek\n--sadnabi\n--gigashreyas\n--wtfshreyas\n--suchitbruh\n--venkydasimp\n--shreyascolor\n--shreyasmugshot\n--blackshreyas\n--sos\n--gigashreyascard\n--anishdoctor\n--wtfboots\n--prof(firstname)\n--lovelyolaf\n--santanish')
 
 
   #repeat bot
@@ -145,11 +103,13 @@ async def on_message(message):
     await message.channel.send('https://media.discordapp.net/attachments/817432681633153029/940304337467506688/Screenshot_20220126-125507_Adobe_Acrobat.jpg?width=315&height=432')
   if(message.content.startswith('--profnarayana')):
     await message.channel.send('https://media.discordapp.net/attachments/817432681633153029/940304337215823992/Screenshot_20220126-125527_Adobe_Acrobat.jpg?width=403&height=432')
-
   if(message.content.startswith('--lovelyolaf')):
     await message.channel.send(' https://media.discordapp.net/attachments/817432681633153029/940808945906364456/Snapchat-1781669876.png?width=364&height=700')
-    
+  if(message.content.startswith('--santanish')):
+    await message.channel.send('https://images-ext-1.discordapp.net/external/_AhFATDwaRcscTwSgegkhNlPLtecBZTN6kNqQjhys6U/%3Fwidth%3D527%26height%3D701/https/media.discordapp.net/attachments/927053607700930580/935246245725896724/AA366A0C-80ED-4FAD-93A6-5577B98A3210.jpg')
+  
   #ratio time
+  # #message.author.id == 635987876147888140 and 
   if 'ratio' in message.content:
     await message.add_reaction('<:upvote:844410038256795678>')
   if message.content.startswith('--unrated'):
