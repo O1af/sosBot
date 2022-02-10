@@ -20,6 +20,7 @@ async def on_message(message):
   #lightmode
   if '⬜' in message.content:
     await message.reply("Light mode, doesn't count")
+    await message.add_reaction('<:upvote:844410038256795678>')
   
   if '👩🏻‍🦳' in message.content:
     await message.reply("Light mode, doesn't count")
@@ -41,21 +42,27 @@ async def on_message(message):
   
   if '🏳️' in message.content:
     await message.reply("Light mode, doesn't count")
+    await message.add_reaction('<:upvote:844410038256795678>')
   
   if '🔳' in message.content:
     await message.reply("Light mode, doesn't count")
+    await message.add_reaction('<:upvote:844410038256795678>')
   
   if '◻️' in message.content:
     await message.reply("Light mode, doesn't count")
+    await message.add_reaction('<:upvote:844410038256795678>')
   
   if '🤍' in message.content:
     await message.reply("Light mode, doesn't count")
+    await message.add_reaction('<:upvote:844410038256795678>')
 
   if '▫️' in message.content:
     await message.reply("Light mode, doesn't count")
+    await message.add_reaction('<:upvote:844410038256795678>')
 
   if '⚪' in message.content:
     await message.reply("Light mode, doesn't count")
+    await message.add_reaction('<:upvote:844410038256795678>')
   
   if 'Light mode, doesn\'t count' in message.content:
     await message.add_reaction('<:upvote:844410038256795678>') 
