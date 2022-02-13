@@ -145,6 +145,12 @@ async def on_message(message):
     # m = newMessage.split()
     # for i in range(int(m[0])):
     #   await message.channel.send(m[1])
+  #echo functionality
+  if message.content.startswith('--say'):
+    if message.author.id == 635987876147888140 or 233753795220209665:
+      await message.channel.send(message[6:])
+      await message.delete
+    
 
 keep_alive()
 client.run(os.getenv('TOKEN'))
