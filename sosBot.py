@@ -119,7 +119,7 @@ async def on_message(message):
   
   #ratio time
   #message.author.id
-  if 'ratio' in message.content:
+  if 'ratio' in message.content.split():
     await message.add_reaction('<:upvote:844410038256795678>')
 
   #valorant unrated composition maker
