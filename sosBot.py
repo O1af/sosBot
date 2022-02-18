@@ -3,77 +3,118 @@ import os
 import random
 from discord.utils import get
 from keep_alive import keep_alive
+from discord.ext import commands
 
 
 client = discord.Client()
+bot = commands.Bot(command_prefix="")
 
 @client.event
 async def on_ready():
   print("Bot is ready!")
-  
+
+
 @client.event
 async def on_message(message):
   if message.author == client.user:
     return
   
+  whitestoconvert = ['🤍', '⬜', '🔲', '⚪']
+  convertedtoblacks = ['🖤', '⬛', '🔳', '⚫']
+
+  #replacing darkmode
+  newString = ""
+  isLight = False
+  for i in range(len(message.content)):
+    print(message.content[i])
+    if message.content[i] in whitestoconvert:
+      isLight = True
+  
+  print(isLight)
+  
+  if isLight:
+    for i in range(len(message.content)):
+      if message.content[i] in whitestoconvert:
+        index = whitestoconvert.index(message.content[i])
+        newString += convertedtoblacks[index]
+      else:
+        newString += message.content[i]
+    print(newString)
+    webhook = await message.channel.create_webhook(name=message.author.name)
+    await webhook.send(content=newString, avatar_url = message.author.avatar_url)
+    await webhook.delete()
+    await message.delete()
+
+
   #lightmode
-  lightmode_emotes = ['⬜','👩🏻‍🦳','👨🏻‍🦳','◽','❔','👩‍🦳','👨‍🦳','🏳️','🤍','▫️','⚪','✅','❕','💮']
+  lightmode_emotes = ['👩🏻‍🦳','👨🏻‍🦳','❔','👩‍🦳','👨‍🦳','✅','❕','💮','☁️','⛅','🌨️','🌩️','⛈️','🌤️','🌥️','🌦️', '▫️', '◻️', '🏳️', '◽']
 
   for i in lightmode_emotes:
     if i in message.content:
       ctx =  await message.reply("Light mode, doesn't count")
       await ctx.add_reaction('<:upvote:844410038256795678>')
       break
-  
-  #commands
-  if(message.content.startswith('--commands')):
-    await message.channel.send('--unrated\n--repeat\n--uno\n--pfp\n--deepthroat\n--wtfolaf\n--epicrs\n--anishteddy\n--soochit\n--sochit\n--babyshek\n--sadnabi\n--gigashreyas\n--wtfshreyas\n--suchitbruh\n--venkydasimp\n--shreyascolor\n--shreyasmugshot\n--blackshreyas\n--sos\n--gigashreyascard\n--anishdoctor\n--wtfboots\n--prof(firstname)\n--lovelyolaf\n--santanish')
-
+     
 
   #repeat bot
-  if message.content.startswith('--repeat'):
+  if message.content.startswith('++repeat'):
     m = message.content.split(" ", 1)
     newMessage = m[1]
     m = newMessage.split(" ",1)
     for i in range(int(m[0])):
       await message.channel.send(m[1])
 
+  #pfp bot
+  if message.content.startswith('++profile'):
+    m = message.content.split(" ", 1)
+    mention = m[1]
+    mention = mention.replace('<','')
+    mention = mention.replace('!','')
+    mention = mention.replace('@','')
+    mention = mention.replace('>','')
+    user = await client.fetch_user(int(mention))
+    pfp = user.avatar_url
+    await message.channel.send(pfp)
+
   #soscommands
 
   commands = [
-  '--uno',
-  '--pfp',
-  '--deepthroat',
-  '--wtfolaf',
-  '--epicrs',
-  '--anishteddy',
-  '--soochit',
-  '--sochit', 
-  '--babyshek', 
-  '--sadnabi',
-  '--gigashreyas',
-  '--wtfshreyas',
-  '--homecoming',
-  '--suchitbruh',
-  '--venkydasimp',
-  '--anishdoctor',
-  '--gigashreyascard',
-  '--blackshreyas',
-  '--sos',
-  '--shreyascolor',
-  '--shreyasmugshot',
-  '--wtfboots',
-  '--profolaf',
-  '--profanish',
-  '--profaneesh',
-  '--profvenkatesh',
-  '--profwilliam',
-  '--profabhishek',
-  '--profrishith',
-  '--profsuchit',
-  '--profnarayana',
-  '--lovelyolaf',
-  '--santanish',
+  '++uno',
+  '++pfp',
+  '++deepthroat',
+  '++wtfolaf',
+  '++epicrs',
+  '++anishteddy',
+  '++soochit',
+  '++sochit', 
+  '++babyshek', 
+  '++sadnabi',
+  '++gigashreyas',
+  '++wtfshreyas',
+  '++homecoming',
+  '++suchitbruh',
+  '++venkydasimp',
+  '++anishdoctor',
+  '++gigashreyascard',
+  '++blackshreyas',
+  '++sos',
+  '++shreyascolor',
+  '++shreyasmugshot',
+  '++wtfboots',
+  '++profolaf',
+  '++profanish',
+  '++profaneesh',
+  '++profvenkatesh',
+  '++profwilliam',
+  '++profabhishek',
+  '++profrishith',
+  '++profsuchit',
+  '++profnarayana',
+  '++lovelyolaf',
+  '++santanish',
+  '++satanish',
+  '++sahijwish',
+  '++joshi',
   ]
 
 
@@ -110,12 +151,32 @@ async def on_message(message):
     'https://media.discordapp.net/attachments/817432681633153029/940304337467506688/Screenshot_20220126-125507_Adobe_Acrobat.jpg?width=315&height=432',
     'https://media.discordapp.net/attachments/817432681633153029/940304337215823992/Screenshot_20220126-125527_Adobe_Acrobat.jpg?width=403&height=432',
     'https://media.discordapp.net/attachments/817432681633153029/940808945906364456/Snapchat-1781669876.png?width=364&height=700',
-    'https://images-ext-1.discordapp.net/external/_AhFATDwaRcscTwSgegkhNlPLtecBZTN6kNqQjhys6U/%3Fwidth%3D527%26height%3D701/https/media.discordapp.net/attachments/927053607700930580/935246245725896724/AA366A0C-80ED-4FAD-93A6-5577B98A3210.jpg'
+    'https://images-ext-1.discordapp.net/external/_AhFATDwaRcscTwSgegkhNlPLtecBZTN6kNqQjhys6U/%3Fwidth%3D527%26height%3D701/https/media.discordapp.net/attachments/927053607700930580/935246245725896724/AA366A0C-80ED-4FAD-93A6-5577B98A3210.jpg',
+    'https://media.discordapp.net/attachments/817432681633153029/941152742553043004/satanish.png?width=517&height=701',
+    'https://media.discordapp.net/attachments/817432681633153029/941154680841576528/IMG_20220209_122937.png?width=526&height=701',
+    'https://media.discordapp.net/attachments/817432681633153029/942509489721081896/image0.png?width=359&height=701',
   ]
+
+
+  #say commands
+  if message.content.startswith('++say'):
+    if message.author.id == 635987876147888140 or 233753795220209665:
+      await message.channel.send(message.content[6:])
+      await message.delete()
+
+  #commands
+  if(message.content.startswith('++commands')):
+    commandlist = "++unrated\n++repeat\n++profile\n"
+    for i in commands:
+      commandlist += i + "\n"
+    await message.channel.send(commandlist)
 
   for i in range(0, len(commands)):
     if message.content.startswith(commands[i]):
-      await message.channel.send(images[i])
+      webhook = await message.channel.create_webhook(name=message.author.name)
+      await webhook.send(content=images[i], avatar_url = message.author.avatar_url)
+      await webhook.delete()
+      await message.delete()
   
   #ratio time
   #message.author.id
@@ -123,10 +184,10 @@ async def on_message(message):
     await message.add_reaction('<:upvote:844410038256795678>')
 
   #valorant unrated composition maker
-  if message.content.startswith('--unrated'):
+  if message.content.startswith('++unrated'):
     agents = ['Brimstone','Viper','Omen','Killjoy','Cypher','Sova','Sage','Phoenix','Jett','Reyna','Raze','Breach','Skye','Astra','KAY/O','Chamber']
     m = message.content.split()
-    m.remove('--unrated')
+    m.remove('++unrated')
     chosen = []
     i = 0
     while i < 5:
@@ -140,17 +201,15 @@ async def on_message(message):
       n = len(m)
     for i in range(n):
       output += m[i] + ': ' + chosen[i] + '\n'
+    output.replace('▫️','⬜')
+    output.replace('◽','⬜')
+    output.replace('◻️','⬜')
+    output.replace('⬜','⬛')
     await message.channel.send(output)
 
     # m = newMessage.split()
     # for i in range(int(m[0])):
     #   await message.channel.send(m[1])
-  #echo functionality
-  if message.content.startswith('--say'):
-    if message.author.id == 635987876147888140 or 233753795220209665:
-      await message.channel.send(message[6:])
-      await message.delete
-    
 
 keep_alive()
 client.run(os.getenv('TOKEN'))
