@@ -115,6 +115,7 @@ async def on_message(message):
   '++satanish',
   '++sahijwish',
   '++joshi',
+  '++violinist',
   ]
 
 
@@ -155,6 +156,7 @@ async def on_message(message):
     'https://media.discordapp.net/attachments/817432681633153029/941152742553043004/satanish.png?width=517&height=701',
     'https://media.discordapp.net/attachments/817432681633153029/941154680841576528/IMG_20220209_122937.png?width=526&height=701',
     'https://media.discordapp.net/attachments/817432681633153029/942509489721081896/image0.png?width=359&height=701',
+    'https://media.discordapp.net/attachments/817432681633153029/945146510226636800/unknown.png',
   ]
 
 
