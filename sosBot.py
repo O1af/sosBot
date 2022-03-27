@@ -9,10 +9,20 @@ from discord.ext import commands
 client = discord.Client()
 bot = commands.Bot(command_prefix="")
 
+                          
 @client.event
 async def on_ready():
   print("Bot is ready!")
+  await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='memes|++commands'))
 
+#self-upvotes
+@client.event
+async def on_reaction_add(reaction, user):
+  ups = ['👍', '🆙', '☝️ ', '🔺', '👆', '👍🏻', '👍🏿', '☝🏿', '🔼', '☝🏽', '⏫', '⬆️', '📈','💹', '🛐']
+  if ((reaction.emoji in ups or 'up' in reaction.emoji.name) and reaction.count == 1):
+    if (user.name == reaction.message.author.name):
+      await reaction.message.channel.send("Hey everyone, " + reaction.message.author.name + " self upvoted")
+    
 
 @client.event
 async def on_message(message):
@@ -26,11 +36,9 @@ async def on_message(message):
   newString = ""
   isLight = False
   for i in range(len(message.content)):
-    print(message.content[i])
     if message.content[i] in whitestoconvert:
       isLight = True
   
-  print(isLight)
   
   if isLight:
     for i in range(len(message.content)):
@@ -39,7 +47,6 @@ async def on_message(message):
         newString += convertedtoblacks[index]
       else:
         newString += message.content[i]
-    print(newString)
     webhook = await message.channel.create_webhook(name=message.author.name)
     await webhook.send(content=newString, avatar_url = message.author.avatar_url)
     await webhook.delete()
@@ -61,8 +68,11 @@ async def on_message(message):
     m = message.content.split(" ", 1)
     newMessage = m[1]
     m = newMessage.split(" ",1)
+    webhook = await message.channel.create_webhook(name=message.author.name)
     for i in range(int(m[0])):
-      await message.channel.send(m[1])
+      await webhook.send(content=m[1], avatar_url = message.author.avatar_url)
+    await webhook.delete()
+    await message.delete()
 
   #pfp bot
   if message.content.startswith('++profile'):
@@ -75,6 +85,9 @@ async def on_message(message):
     user = await client.fetch_user(int(mention))
     pfp = user.avatar_url
     await message.channel.send(pfp)
+
+  if "cant" in message.content.lower() or "can't" in message.content.lower() or "cannot" in message.content.lower():
+    await message.reply('https://media.discordapp.net/attachments/817432681633153029/950248307429621810/Screen_Shot_2022-03-06_at_9.png')
 
   #soscommands
 
@@ -116,6 +129,11 @@ async def on_message(message):
   '++sahijwish',
   '++joshi',
   '++violinist',
+  '++brishith',
+  '++winternish',
+  '++snorlaf',
+  '++cant',
+  '++venkyrobber',
   ]
 
 
@@ -157,10 +175,13 @@ async def on_message(message):
     'https://media.discordapp.net/attachments/817432681633153029/941154680841576528/IMG_20220209_122937.png?width=526&height=701',
     'https://media.discordapp.net/attachments/817432681633153029/942509489721081896/image0.png?width=359&height=701',
     'https://media.discordapp.net/attachments/817432681633153029/945146510226636800/unknown.png',
+    'https://media.discordapp.net/attachments/817432681633153029/945163077278633994/unknown.png?width=612&height=701',
+    'https://media.discordapp.net/attachments/817432681633153029/948430043468660778/santanish.png',
+    'https://media.discordapp.net/attachments/817432681633153029/950247045338370088/snorlaf.png',
+    'https://media.discordapp.net/attachments/817432681633153029/950248307429621810/Screen_Shot_2022-03-06_at_9.png',
+    'https://media.discordapp.net/attachments/817432681633153029/957434888624152616/unknown.png?width=524&height=701',
   ]
 
-
-  #say commands
   if message.content.startswith('++say'):
     if message.author.id == 635987876147888140 or 233753795220209665:
       await message.channel.send(message.content[6:])
@@ -168,9 +189,9 @@ async def on_message(message):
 
   #commands
   if(message.content.startswith('++commands')):
-    commandlist = "++unrated\n++repeat\n++profile\n"
+    commandlist = "++unrated\t++repeat\t++profile\t"
     for i in commands:
-      commandlist += i + "\n"
+      commandlist += i + "\t"
     await message.channel.send(commandlist)
 
   for i in range(0, len(commands)):
@@ -179,10 +200,8 @@ async def on_message(message):
       await webhook.send(content=images[i], avatar_url = message.author.avatar_url)
       await webhook.delete()
       await message.delete()
-  
-  #ratio time
-  #message.author.id
-  if 'ratio' in message.content.split():
+
+  if 'ratio' in message.content.lower().split():
     await message.add_reaction('<:upvote:844410038256795678>')
 
   #valorant unrated composition maker
@@ -208,10 +227,6 @@ async def on_message(message):
     output.replace('◻️','⬜')
     output.replace('⬜','⬛')
     await message.channel.send(output)
-
-    # m = newMessage.split()
-    # for i in range(int(m[0])):
-    #   await message.channel.send(m[1])
 
 keep_alive()
 client.run(os.getenv('TOKEN'))
