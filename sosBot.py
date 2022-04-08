@@ -1,13 +1,11 @@
 import discord
 import os
 import random
-from discord.utils import get
 from keep_alive import keep_alive
 from discord.ext import commands
 
 
 client = discord.Client()
-bot = commands.Bot(command_prefix="")
 
                           
 @client.event
@@ -15,9 +13,10 @@ async def on_ready():
   print("Bot is ready!")
   await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='memes|++commands'))
 
-#self-upvotes
+
 @client.event
 async def on_reaction_add(reaction, user):
+  #checking for self-upvotes
   ups = ['👍', '🆙', '☝️ ', '🔺', '👆', '👍🏻', '👍🏿', '☝🏿', '🔼', '☝🏽', '⏫', '⬆️', '📈','💹', '🛐']
   if ((reaction.emoji in ups or 'up' in reaction.emoji.name) and reaction.count == 1):
     if (user.name == reaction.message.author.name):
@@ -29,17 +28,15 @@ async def on_message(message):
   if message.author == client.user:
     return
   
+  #replacing darkmode
   whitestoconvert = ['🤍', '⬜', '🔲', '⚪']
   convertedtoblacks = ['🖤', '⬛', '🔳', '⚫']
-
-  #replacing darkmode
   newString = ""
   isLight = False
   for i in range(len(message.content)):
     if message.content[i] in whitestoconvert:
       isLight = True
-  
-  
+   
   if isLight:
     for i in range(len(message.content)):
       if message.content[i] in whitestoconvert:
@@ -55,7 +52,6 @@ async def on_message(message):
 
   #lightmode
   lightmode_emotes = ['👩🏻‍🦳','👨🏻‍🦳','❔','👩‍🦳','👨‍🦳','✅','❕','💮','☁️','⛅','🌨️','🌩️','⛈️','🌤️','🌥️','🌦️', '▫️', '◻️', '🏳️', '◽']
-
   for i in lightmode_emotes:
     if i in message.content:
       ctx =  await message.reply("Light mode, doesn't count")
@@ -89,8 +85,7 @@ async def on_message(message):
   if "cant" in message.content.lower() or "can't" in message.content.lower() or "cannot" in message.content.lower():
     await message.reply('https://media.discordapp.net/attachments/817432681633153029/950248307429621810/Screen_Shot_2022-03-06_at_9.png')
 
-  #soscommands
-
+  #sos commands
   commands = [
   '++uno',
   '++pfp',
@@ -136,7 +131,7 @@ async def on_message(message):
   '++venkyrobber',
   ]
 
-
+  #sos images
   images = [
     'https://cdn.discordapp.com/attachments/817432681633153029/911777019321262080/no_u.png',
     'https://cdn.discordapp.com/attachments/689191193267273838/924504774211162152/1640489479600.png',
@@ -182,18 +177,20 @@ async def on_message(message):
     'https://media.discordapp.net/attachments/817432681633153029/957434888624152616/unknown.png?width=524&height=701',
   ]
 
+  #say
   if message.content.startswith('++say'):
-    if message.author.id == 635987876147888140 or 233753795220209665:
+    if message.author.id == 635987876147888140 or message.author.id == 233753795220209665:
       await message.channel.send(message.content[6:])
       await message.delete()
 
-  #commands
+  #commandslist
   if(message.content.startswith('++commands')):
     commandlist = "++unrated\t++repeat\t++profile\t"
     for i in commands:
       commandlist += i + "\t"
     await message.channel.send(commandlist)
 
+  #ouput sos images
   for i in range(0, len(commands)):
     if message.content.startswith(commands[i]):
       webhook = await message.channel.create_webhook(name=message.author.name)
@@ -201,12 +198,20 @@ async def on_message(message):
       await webhook.delete()
       await message.delete()
 
+  
+  #ratio time
   if 'ratio' in message.content.lower().split():
     await message.add_reaction('<:upvote:844410038256795678>')
 
+  #hop on command
+  if ('hopon' in message.content.replace(" ", "").lower()):
+    webhook = await message.channel.create_webhook(name="daddy reddy")
+    await webhook.send(content="https://images-ext-2.discordapp.net/external/NS1Bofn_ADxK8XIInqjpXgYtMWDJaZIctR2EXP5f0AE/https/24.media.tumblr.com/d4f03ca449e3d51325e9ba0cc6a11b24/tumblr_mmjr3zHgmw1s6qc3bo1_500.gif", avatar_url ="https://media.discordapp.net/attachments/929075287096983592/958899236487970816/unknown.png")
+    await webhook.delete()
+
   #valorant unrated composition maker
   if message.content.startswith('++unrated'):
-    agents = ['Brimstone','Viper','Omen','Killjoy','Cypher','Sova','Sage','Phoenix','Jett','Reyna','Raze','Breach','Skye','Astra','KAY/O','Chamber']
+    agents = ['Brimstone','Viper','Omen','Killjoy','Cypher','Sova','Sage','Phoenix','Jett','Reyna','Raze','Breach','Skye','Astra','KAY/O','Chamber','Neon']
     m = message.content.split()
     m.remove('++unrated')
     chosen = []
