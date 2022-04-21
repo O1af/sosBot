@@ -81,6 +81,10 @@ async def on_message(message):
     user = await client.fetch_user(int(mention))
     pfp = user.avatar_url
     await message.channel.send(pfp)
+    
+  if message.content.startswith('++randomuser'):
+    guild = client.get_guild(843919055408201789)
+    await message.reply(random.choice(guild.members).mention + " has been randomly selected")
 
   if "cant" in message.content.lower() or "can't" in message.content.lower() or "cannot" in message.content.lower():
     await message.reply('https://media.discordapp.net/attachments/817432681633153029/950248307429621810/Screen_Shot_2022-03-06_at_9.png')
