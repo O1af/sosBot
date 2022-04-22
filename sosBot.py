@@ -81,6 +81,12 @@ async def on_message(message):
     user = await client.fetch_user(int(mention))
     pfp = user.avatar_url
     await message.channel.send(pfp)
+    
+  if message.content.startswith('++pickq&a'):
+    guild = client.get_guild(843919055408201789)
+    chosen = random.choice(guild.members)
+    await message.reply(chosen.mention + " has been randomly selected")
+    await guild.get_channel(961416593563320370).edit(name = "Q & A with " + chosen.name)
 
   if "cant" in message.content.lower() or "can't" in message.content.lower() or "cannot" in message.content.lower():
     await message.reply('https://media.discordapp.net/attachments/817432681633153029/950248307429621810/Screen_Shot_2022-03-06_at_9.png')
@@ -129,7 +135,7 @@ async def on_message(message):
   '++snorlaf',
   '++cant',
   '++venkyrobber',
-  ]
+  '++pickq&a']
 
   #sos images
   images = [
