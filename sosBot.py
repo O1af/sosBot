@@ -267,4 +267,4 @@ async def on_message(message):
     output.replace('⬜','⬛')
     await message.channel.send(output)
 
-client.run('OTEyNTMyODg4Mjc5NDYxOTA4.YZxUeg.jnr7g2YihtPB8iG5XD_O_DpjmyU')
+client.run('TOKEN')
