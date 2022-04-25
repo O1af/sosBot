@@ -1,11 +1,20 @@
 import discord
 import os
 import random
-from keep_alive import keep_alive
-from discord.ext import commands
+import asyncio
+from discord.ext import commands, tasks
+from datetime import datetime, timedelta
 
 
-client = discord.Client()
+
+token = open('token.txt', 'r')
+botToken = token.read()
+token.close()
+
+
+intents = discord.Intents.all()
+client = discord.Client(intents=intents)
+
 
                           
 @client.event
@@ -81,12 +90,18 @@ async def on_message(message):
     user = await client.fetch_user(int(mention))
     pfp = user.avatar_url
     await message.channel.send(pfp)
-    
-  if message.content.startswith('++pickq&a'):
+
+  if message.content.startswith('++qna') and (message.author.id == 635987876147888140 or message.author.id == 363396359841251328) and message.channel.id == 961416593563320370:
     guild = client.get_guild(843919055408201789)
     chosen = random.choice(guild.members)
-    await message.reply(chosen.mention + " has been randomly selected")
-    await guild.get_channel(961416593563320370).edit(name = "Q & A with " + chosen.name)
+    webhook = await message.channel.create_webhook(name="Q&A")
+    await webhook.send(content=chosen.mention + " has been randomly selected", avatar_url = "https://static.wikia.nocookie.net/mario/images/9/99/Mystery_Box_Art_-_Super_Mario_3D_Land.png/revision/latest?cb=20120414010941")
+    await message.delete()
+    await message.delete()
+
+
+
+    
 
   if "cant" in message.content.lower() or "can't" in message.content.lower() or "cannot" in message.content.lower():
     await message.reply('https://media.discordapp.net/attachments/817432681633153029/950248307429621810/Screen_Shot_2022-03-06_at_9.png')
@@ -135,7 +150,7 @@ async def on_message(message):
   '++snorlaf',
   '++cant',
   '++venkyrobber',
-  '++pickq&a']
+  ]
 
   #sos images
   images = [
@@ -189,6 +204,19 @@ async def on_message(message):
       await message.channel.send(message.content[6:])
       await message.delete()
 
+  #as
+  if message.content.startswith('++as'):
+    m = message.content.split()
+    if(m[1][2:-1]!=635987876147888140):
+      user = await client.fetch_user(int(m[1][2:-1]))
+      webhook = await message.channel.create_webhook(name=user.name)
+      newMessage = ""
+      for i in m[2:]:
+        newMessage += i + " "
+      await webhook.send(content = newMessage, avatar_url = user.avatar_url)
+      await webhook.delete()
+      await message.delete()
+
   #commandslist
   if(message.content.startswith('++commands')):
     commandlist = "++unrated\t++repeat\t++profile\t"
@@ -239,5 +267,4 @@ async def on_message(message):
     output.replace('⬜','⬛')
     await message.channel.send(output)
 
-keep_alive()
-client.run(os.getenv('TOKEN'))
+client.run('OTEyNTMyODg4Mjc5NDYxOTA4.YZxUeg.jnr7g2YihtPB8iG5XD_O_DpjmyU')
